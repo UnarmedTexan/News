@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Late Breaking News</string>
+
+
+    <!--Book "Subject" search title [CHAR LIMIT=15] -->
+    <string name="subject_search">Subject:</string>
+
+    <!--Book "Subject" search hint [CHAR LIMIT=15] -->
+    <string name="subject_hint">Enter Subject</string>
+
+    <!-- Text to display when there is no network connection [CHAR LIMIT=NONE] -->
+    <string name="no_connection">No network connection</string>
+
+    <!-- Text to display when no search term has been entered [CHAR LIMIT=NONE] -->
+    <string name="no_search_term">Please enter a search term!</string>
+
+
+    <!-- Text to display when no books are found to match the search criteria [CHAR LIMIT=NONE] -->
+    <string name="no_articles">No articles found.</string>
+
+
+
+</resources>
