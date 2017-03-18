@@ -28,6 +28,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         // Check if an existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
         if (convertView == null) {
@@ -36,7 +37,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         }
         //get the {@link News} object for this list position
         News currentArticle = getItem(position);
-
 
         //Find the TextView for the list_news.xml layout with the ID list_section.
         TextView sectionTitleView = (TextView) listItemView.findViewById(R.id.list_section);
