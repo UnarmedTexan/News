@@ -30,11 +30,11 @@ public class NewsAdapter extends ArrayAdapter<News> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if an existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
-        if (listItemView == null) {
+        if (convertView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_news, parent, false);
         }
-        //get the {@link Book} object for this list position
+        //get the {@link News} object for this list position
         News currentArticle = getItem(position);
 
 

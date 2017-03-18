@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Late Breaking News</string>
-
+    <string name="app_name">News Now</string>
 
     <!--Book "Subject" search title [CHAR LIMIT=15] -->
     <string name="subject_search">Subject:</string>
@@ -14,10 +13,59 @@
     <!-- Text to display when no search term has been entered [CHAR LIMIT=NONE] -->
     <string name="no_search_term">Please enter a search term!</string>
 
-
     <!-- Text to display when no books are found to match the search criteria [CHAR LIMIT=NONE] -->
     <string name="no_articles">No articles found.</string>
 
+    <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
+    <string name="settings_menu_item">Settings</string>
+    <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
+    <string name="settings_title">News Settings</string>
 
+    <!-- Strings for order-by preference settings: default is order by most recent [CHAR LIMIT=20] -->
+    <string name="settings_order_by_label">List by order of:</string>
+    <string name="settings_order_by_key" translatable="false">order-by</string>
+    <string name="settings_order_by_default"
+        translatable="false">@string/settings_order_by_most_recent_date_value</string>
 
+    <!-- Strings for order-by most relevant option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_relevance_label">Most Relevant</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+    <!-- Strings for order-by most recent article date option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_most_recent_date_label">Most Recent</string>
+    <string name="settings_order_by_most_recent_date_value" translatable="false">newest</string>
+
+    <!-- Strings for section preference settings: default is world section [CHAR LIMIT=20] -->
+    <string name="settings_section_label">News Section:</string>
+    <string name="settings_section_key" translatable="false">section</string>
+    <string name="settings_section_default"
+        translatable="false">@string/settings_section_world_value</string>
+
+    <!-- Strings for world section option [CHAR LIMIT=20] -->
+    <string name="settings_section_world_label">World News</string>
+    <string name="settings_section_world_value" translatable="false">world</string>
+
+    <!-- Strings for us-news section option [CHAR LIMIT=20] -->
+    <string name="settings_section_us_news_label">US News</string>
+    <string name="settings_section_us_news_value" translatable="false">us-news</string>
+
+    <!-- Strings for sport section option [CHAR LIMIT=20] -->
+    <string name="settings_section_sport_label">Sports</string>
+    <string name="settings_section_sport_value" translatable="false">sport</string>
+
+    <!-- Strings for business section option [CHAR LIMIT=20] -->
+    <string name="settings_section_business_label">Business</string>
+    <string name="settings_section_business_value" translatable="false">business</string>
+
+    <!-- Strings for technology section option [CHAR LIMIT=20] -->
+    <string name="settings_section_technology_label">Technology</string>
+    <string name="settings_section_technology_value" translatable="false">technology</string>
+
+    <!-- Strings for lifestyle section option [CHAR LIMIT=20] -->
+    <string name="settings_section_lifestyle_label">Lifestyle</string>
+    <string name="settings_section_lifestyle_value" translatable="false">lifeandstyle</string>
+
+    <!-- Strings for travel section option [CHAR LIMIT=20] -->
+    <string name="settings_section_travel_label">Travel</string>
+    <string name="settings_section_travel_value" translatable="false">travel</string>
 </resources>

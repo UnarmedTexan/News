@@ -2,14 +2,18 @@ package com.example.android.news;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -27,14 +31,14 @@ public class NewsActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<News>> {
 
     private static final String LOG_TAG = NewsActivity.class.getName();
-    // Constant value for the book loader ID. This is required if multiple loaders are being used.
+    // Constant value for the news loader ID. This is required if multiple loaders are being used.
     private static final int NEWS_LOADER_ID = 1;
-    // Main portion of the Url for the book data requested from TheGuardian API
+    // Main portion of the Url for the news data requested from TheGuardian API
     private static final String GUARDIAN_REQUEST_URL = "http://content.guardianapis.com/search?";
 
 
-    private static String apiKey = "&api-key=6ae62e1c-8f0b-4375-985b-9a6656c703bf";
-    // Adapter for the list of books
+    private static String apiKey = "6ae62e1c-8f0b-4375-985b-9a6656c703bf";
+    // Adapter for the list of news articles
     private NewsAdapter mAdapter;
 
     // When the list is empty, this is the TextView to be displayed.
@@ -49,7 +53,7 @@ public class NewsActivity extends AppCompatActivity
     // Initialize the String object used to hold the user entered search criteria.
     private String searchTerm;
 
-    // Initialize the ListView used to display a list of books associated with the search criteria.
+    // Initialize the ListView used to display a list of articles associated with the search criteria.
     private ListView newsListView;
 
     // Get a reference to the LoaderManager, in order to interact with loaders.
@@ -60,12 +64,12 @@ public class NewsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_activity);
 
-        // Find the item touched by the user to initiate a book search
+        // Find the item touched by the user to initiate a news article search
         termSearch = (ImageView) findViewById(R.id.subject_search);
         // Find the reference to the {@link ListView} in the layout
         newsListView = (ListView) findViewById(R.id.list);
 
-        // Set the progress spinner to the Progress Bar view in books_activity.xml
+        // Set the progress spinner to the Progress Bar view in news_activity.xml
         loadingData = (ProgressBar) findViewById(R.id.loading_progress);
         // Make the progress spinner invisible
         loadingData.setVisibility(View.INVISIBLE);
@@ -77,9 +81,9 @@ public class NewsActivity extends AppCompatActivity
         // Find the EditText view where the user enters search criteria
         final EditText subjectEntered = (EditText) findViewById(R.id.subject_text);
 
-        //Create a new book adapter which take an empty list of books as input
+        //Create a new news adapter which take an empty list of articles as input
         mAdapter = new NewsAdapter(NewsActivity.this, new ArrayList<News>());
-        // Set the adapter on the {@link ListView}, so the list can be filled with books
+        // Set the adapter on the {@link ListView}, so the list can be filled with articles
         // in the user interface.
         newsListView.setAdapter(mAdapter);
 
@@ -118,7 +122,7 @@ public class NewsActivity extends AppCompatActivity
                         // Create a reference to the LoaderManager to interact with the Loader(s).
                         LoaderManager loaderManager = getSupportLoaderManager();
 
-                        // Loader reset - this is to clear out any existing book data.
+                        // Loader reset - this is to clear out any existing news data.
                         loaderManager.restartLoader(NEWS_LOADER_ID, null, NewsActivity.this).
                                 forceLoad();
                     } else {
@@ -153,49 +157,69 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-        // Create the Uri Builder
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String orderBy = sharedPreferences.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        String section = sharedPreferences.getString(
+                getString(R.string.settings_section_key),
+                getString(R.string.settings_section_default));
+
         Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("section", section);
+        uriBuilder.appendQueryParameter("from-date", "2015-01-01");
         uriBuilder.appendQueryParameter("q", searchTerm);
         uriBuilder.appendQueryParameter("api-key", apiKey);
 
         Log.v(LOG_TAG, uriBuilder.toString());
-        // Create a new loader for a user provided search request
-//        if (searchTerm == null) {
-//            return new Loader<List<News>>(this);
-//        }else {
-            // This worked before trying the Uri builder...
-            // remove spaces from user search entry
-            // searchTerm = searchTerm.replace(" ", "%20");
-//        }
-        // Generate a new loader for a particular URL
-        // return new NewsLoader(this, GUARDIAN_REQUEST_URL + searchTerm + apiKey);
 
-        // attempted return using Uri builder
+        //  Generate a new loader for a particular URL
         return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
-    public void onLoadFinished(Loader<List<News>> loader, List<News> books) {
-        // Set TextView ID empty_view to display "No books found."
+    public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
+        // Set TextView ID empty_view to display "No articles found."
         mEmptyStateView.setText(R.string.no_articles);
 
         // Set Progress spinner to invisible
         loadingData.setVisibility(View.INVISIBLE);
 
-        //Clear the adapter of any previous book search results
+        //Clear the adapter of any previous news search results
         mAdapter.clear();
 
-        // If there is a valid list of {@link Books}s, then add them to the adapter's
+        // If there is a valid list of {@link News}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
-        if (books != null && !books.isEmpty()) {
-            mAdapter.addAll(books);
+        if (news != null && !news.isEmpty()) {
+            mAdapter.addAll(news);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
-        // Loader reset - this is to clear out any existing book data.
+        // Loader reset - this is to clear out any existing news data.
         mAdapter.clear();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

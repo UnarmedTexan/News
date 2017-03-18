@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <string-array name="settings_order_by_labels">
+        <item>@string/settings_order_by_relevance_label</item>
+        <item>@string/settings_order_by_most_recent_date_label</item>
+    </string-array>
+
+    <string-array name="settings_order_by_values">
+        <item>@string/settings_order_by_relevance_value</item>
+        <item>@string/settings_order_by_most_recent_date_value</item>
+    </string-array>
+
+    <string-array name="settings_section_labels">
+        <item>@string/settings_section_world_label</item>
+        <item>@string/settings_section_us_news_label</item>
+        <item>@string/settings_section_sport_label</item>
+        <item>@string/settings_section_business_label</item>
+        <item>@string/settings_section_technology_label</item>
+        <item>@string/settings_section_lifestyle_label</item>
+        <item>@string/settings_section_travel_label</item>
+    </string-array>
+
+    <string-array name="settings_section_values">
+        <item>@string/settings_section_world_value</item>
+        <item>@string/settings_section_us_news_value</item>
+        <item>@string/settings_section_sport_value</item>
+        <item>@string/settings_section_business_value</item>
+        <item>@string/settings_section_technology_value</item>
+        <item>@string/settings_section_lifestyle_value</item>
+        <item>@string/settings_section_travel_value</item>
+    </string-array>
+
+</resources>

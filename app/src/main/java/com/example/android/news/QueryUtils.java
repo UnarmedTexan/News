@@ -31,9 +31,9 @@ public class QueryUtils {
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
     /**
-     * Search the GoogleBooksAPI and return an {@link News} object to represent a book
+     * Search the TheGuardian API and return an {@link News} object to represent a news article
      */
-    public static List<News> fetchBookData(String requestUrl) {
+    public static List<News> fetchNewsData(String requestUrl) {
         // Genereate URL object
         URL url = createURL(requestUrl);
 
@@ -44,10 +44,10 @@ public class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
-        //Retrieve relevant fields from the JSON response and create an {@link Book} object
+        //Retrieve relevant fields from the JSON response and create an {@link News} object
         List<News> newsArticles = extractArticleInfoFromJson(jsonResponse);
 
-        // return the {@link Book}
+        // return the {@link News}
         return newsArticles;
     }
 
@@ -91,7 +91,7 @@ public class QueryUtils {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the book JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the news JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -147,7 +147,7 @@ public class QueryUtils {
             // which represents a list of newsArticles.
             JSONArray newsArray = response.getJSONArray("results");
 
-            // Create an {@link News} object in the newsArray for each book.
+            // Create an {@link News} object in the newsArray for each news article.
             for (int i = 0; i < newsArray.length(); i++) {
 
                 // Get the article at position i within the list of newsArticles
